@@ -1,0 +1,24 @@
+{
+  "name": "npm-bucket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp start",
+    "linter": "stylelint \"**/*.scss\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "del": "^6.1.1",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.52.2"
+  },
+  "devDependencies": {
+    "stylelint": "^14.8.5",
+    "stylelint-config-standard-scss": "^4.0.0"
+  }
+}
