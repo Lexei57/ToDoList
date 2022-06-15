@@ -1,3 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  color: red;
+  font-size: 16px;
+  font-weight: normal;
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: rgb(85, 181, 200);
+}
+
+.list {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+  width: 100vh;
+}
+.list h1 {
+  text-align: center;
+  padding-bottom: 30px;
+}
+.list h3 {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.input-tasks {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  height: 60px;
+  background-color: rgb(205, 197, 183);
+}
+.input-tasks input {
+  width: 600px;
+  height: 30px;
+  align-items: center;
+  align-self: center;
+}
+.input-tasks button {
+  width: 100px;
+  height: 30px;
+  align-self: center;
+  background-color: rgba(97, 195, 97, 0.581);
+  border: none;
+  cursor: pointer;
+}
+
+.todo {
+  display: block;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(255, 168, 5);
+  border-radius: 5px;
+  padding: 20px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-compleate {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: rgba(231, 89, 89, 0.996);
+  border-radius: 4px;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+.higher {
+  font-size: 20px;
 }

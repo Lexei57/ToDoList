@@ -7,7 +7,6 @@ const del = require ('del');
 gulp.task('css', () => {
     return gulp.src('./src/scss/**/*.scss')
     .pipe(sass())
-    // команда для переименования
     .pipe(gulp.dest('./build/css'));
 })
 
@@ -17,10 +16,16 @@ gulp.task('html', () => {
     .pipe(gulp.dest('./build'));
 })
 
+gulp.task('js', () => {
+    return gulp.src ('./src/*.js')
+    .pipe(gulp.dest('./build'));
+})
+
+
 // работа с копированием. Когда перечисляем папки для копирования делаем это через [], т.к. это массив
 gulp.task ('copy', () => {
     return gulp.src([
-        './src/fonts/**/*.scss',
+        './src/js/**',
         './src/images/**/*.*'
     ]).pipe(gulp.dest('./build'))
 })
@@ -34,7 +39,8 @@ gulp.task('clear', function() {
 gulp.watch('./src/scss/**/*.scss', gulp.series('css'))
 // позволяет выполнять npmt start при сохранении html
 gulp.watch('./src/**/*.html', gulp.series('html'))
+// позволяет выполнять npmt start при сохранении js
+gulp.watch('./src/**/*.js', gulp.series('js'))
 
 
-
-gulp.task("start", gulp.series('clear','copy', 'css', 'html'))
+gulp.task("start", gulp.series('clear','copy', 'css', 'html', 'js'))
