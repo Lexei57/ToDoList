@@ -18,20 +18,27 @@ function Task(description) { // принимаем discription из input
 const createTemplate = (task, index) => {
     // здесь мы вставляем часть кода для html, которая должна генерироваться. Через динамические скобки, чтоб вставлят ьнужные значения куда надо
     return `  
-        <div class="todo-item ${task.completed ? 'checked' : ''}">
+        <div class="todo-item  ${task.completed ? 'checked' : ''}">
             <div class="description">${task.description}</div>
             <div class="buttons">
                 <input onclick="completeTask(${index})" class="btn-compleate" type="checkbox"  ${task.completed ? 'checked' : ''}>
-                <button class="btn-delete">Удалить</button>
+                <button onclick="deleteTask(${index})" class="btn-delete">Удалить</button>
             </div>
         </div>
     `
+}
+
+const filterTasks = () => {  // ф-ция для того, чтоб сделанные задачи опускать вниз
+    const activeTasks = tasks.length && tasks.filter(item => item.completed == false) // переменная для активного состояния. Будет фильтровать тольео те задачи, у которых значение Completed = false
+    const completedTasks = tasks.length && tasks.filter(item => item.completed == true) // здесь обратная ситуация
+    tasks = [...activeTasks, ...completedTasks]; //сначала выполняем activeTasks, затем completeTask. Троеточие (...) раскрывает этот массив
 }
 
 // Ф-ция для внесения данных в список дел
 const fillHtmlList = () => {
     todoContainer.innerHTML = ''; // обращаемся к списку задач с методом innerHTML задавая поведение, что изначально все будет зачищаться
     if (tasks.length > 0) { // если tasks не пустой...
+        filterTasks(); // вызываем фильтрацию
         tasks.forEach((item, index) => {  // ... то обращаемся к массиву с помощью метода .forEach
             todoContainer.innerHTML += createTemplate(item, index);  // каждую итерацию (item, index) буду отправлять в createTamplate
         });
@@ -63,6 +70,15 @@ addTaskBtn.addEventListener('click', () => { // взаимодействуя с 
     fillHtmlList();
     deskTaskInput.value = ''; // берет value из input и зачищает введенные данные, после их добавления
 })
+
+const deleteTask = index => {  // ф-ция для удаления задачи
+    todoItemElems[index].classList.add('delition')  //команда создает класс в втсавленном коде
+    setTimeout(() => { // задает задержку воспроизведения для анимации. Ниже устанавдивается время  !!
+        tasks.splice(index, 1); // метод splice позволяет удалять, где первое значнеие это элемент, а второе - жто кол-во
+        updateLocal(); // обновляет локальное хранилище
+        fillHtmlList(); // заполняет локальное хранилище в рамках этой ф-ции
+    }, 500) // !! время для задержки 
+}
 
 
 
