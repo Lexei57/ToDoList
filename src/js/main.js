@@ -18,35 +18,42 @@ function Task(description) { // принимаем discription из input
 const createTemplate = (task, index) => {
     // здесь мы вставляем часть кода для html, которая должна генерироваться. Через динамические скобки, чтоб вставлят ьнужные значения куда надо
     return `  
-        <div class="todo-item ${task.completed ? 'checked' : ''}">
+        <div class="todo-item  ${task.completed ? 'checked' : ''}">
             <div class="description">${task.description}</div>
             <div class="buttons">
-                <input onclick="compleateTask(${index})" type="checkbox" class="btn-compleate" ${task.completed ? 'checked' : ''}>
-                <button class="btn-delete">Удалить</button>
+                <input onclick="completeTask(${index})" class="btn-compleate" type="checkbox"  ${task.completed ? 'checked' : ''}>
+                <button onclick="deleteTask(${index})" class="btn-delete">Удалить</button>
             </div>
         </div>
     `
+}
+
+const filterTasks = () => {  // ф-ция для того, чтоб сделанные задачи опускать вниз
+    const activeTasks = tasks.length && tasks.filter(item => item.completed == false) // переменная для активного состояния. Будет фильтровать тольео те задачи, у которых значение Completed = false
+    const completedTasks = tasks.length && tasks.filter(item => item.completed == true) // здесь обратная ситуация
+    tasks = [...activeTasks, ...completedTasks]; //сначала выполняем activeTasks, затем completeTask. Троеточие (...) раскрывает этот массив
 }
 
 // Ф-ция для внесения данных в список дел
 const fillHtmlList = () => {
     todoContainer.innerHTML = ''; // обращаемся к списку задач с методом innerHTML задавая поведение, что изначально все будет зачищаться
     if (tasks.length > 0) { // если tasks не пустой...
+        filterTasks(); // вызываем фильтрацию
         tasks.forEach((item, index) => {  // ... то обращаемся к массиву с помощью метода .forEach
             todoContainer.innerHTML += createTemplate(item, index);  // каждую итерацию (item, index) буду отправлять в createTamplate
         });
-        todoItemElems = document.querySelectorAll('todo-item'); // передаем в селектов todo-item
+        todoItemElems = document.querySelectorAll('.todo-item'); // передаем в селектов todo-item
     }
 }
 
 fillHtmlList();
 
 // Функция для сохранения данных в локальном хранилище, к которой мы обращаемся в дальнейшем
-const updateLocal =() => {  // функция к которой мы дуем обращаться, чтоб обновить данные в локальком хранилище
-    localStorage.setItem('tasks', JSON.stringify(tasks)) // глаобальная перменная localStorage с помощью методоа setItem будет вносить ключ tasks, преобразовывая его в формат JSON c методом strigify с помощью массива tasks
+const updateLocal = () => {  // функция к которой мы дуем обращаться, чтоб обновить данные в локальком хранилище
+    localStorage.setItem('tasks', JSON.stringify(tasks)); // глаобальная перменная localStorage с помощью методоа setItem будет вносить ключ tasks, преобразовывая его в формат JSON c методом strigify с помощью массива tasks
 }
 
-const compleateTask = index => { // ф-ция для кнопки чекбокс
+const completeTask = index => { // ф-ция для кнопки чекбокс
     tasks[index].completed = !tasks[index].completed; //берет массив в котором значение index для обозначчения какую именно задачу мы выбрали
     if(tasks[index].completed) { // если значение верно (compleated), то...
         todoItemElems[index].classList.add('checked'); // ...то мы обращаемся к массиву и добавляем todo-item значение checked
@@ -63,6 +70,15 @@ addTaskBtn.addEventListener('click', () => { // взаимодействуя с 
     fillHtmlList();
     deskTaskInput.value = ''; // берет value из input и зачищает введенные данные, после их добавления
 })
+
+const deleteTask = index => {  // ф-ция для удаления задачи
+    todoItemElems[index].classList.add('delition')  //команда создает класс в втсавленном коде
+    setTimeout(() => { // задает задержку воспроизведения для анимации. Ниже устанавдивается время  !!
+        tasks.splice(index, 1); // метод splice позволяет удалять, где первое значнеие это элемент, а второе - жто кол-во
+        updateLocal(); // обновляет локальное хранилище
+        fillHtmlList(); // заполняет локальное хранилище в рамках этой ф-ции
+    }, 500) // !! время для задержки 
+}
 
 
 
