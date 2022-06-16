@@ -9,7 +9,7 @@ body {
   font-size: 16px;
   font-weight: normal;
   font-family: "Roboto Condensed", sans-serif;
-  background-color: rgb(85, 181, 200);
+  background-color: #FFF7E9;
 }
 
 .list {
@@ -24,7 +24,8 @@ body {
 }
 .list h3 {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
 
 .input-tasks {
@@ -33,35 +34,48 @@ body {
   gap: 15px;
   width: 100%;
   height: 60px;
-  background-color: rgb(205, 197, 183);
+  background-color: #A66E46;
+  border-radius: 5px;
 }
 .input-tasks input {
   width: 600px;
   height: 30px;
   align-items: center;
   align-self: center;
+  border-radius: 5px;
+  border: none;
 }
 .input-tasks button {
   width: 100px;
   height: 30px;
   align-self: center;
-  background-color: rgba(97, 195, 97, 0.581);
+  background-color: #FFE8D7;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.todo {
-  display: block;
+.todo-list {
+  background-color: #A66E46;
+  padding: 15px 10px 10px;
+  border-radius: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+  overflow: hidden;
 }
 
 .todo-item {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(255, 168, 5);
+  background-color: #FFF7E9;
   border-radius: 5px;
   padding: 20px;
   border: 1px solid black;
   margin-bottom: 20px;
+  animation-name: checked-reverse;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
 }
 
 .buttons {
@@ -77,13 +91,44 @@ body {
 }
 
 .btn-delete {
-  background-color: rgba(231, 89, 89, 0.996);
+  background-color: rgba(255, 60, 0, 0.5647058824);
   border-radius: 4px;
   border: none;
   padding: 5px 15px;
   cursor: pointer;
 }
 
+.checked {
+  animation-name: checked;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+}
+.checked .description {
+  text-decoration: line-through;
+}
+
+.todo-item.delition {
+  transition: 1s;
+  transform: translateX(1000px);
+}
+
+@keyframes checked {
+  from {
+    background-color: #FFF7E9;
+  }
+  to {
+    background-color: #c9c1b6;
+  }
+}
+@keyframes checked-reverse {
+  from {
+    background-color: #c9c1b6;
+  }
+  to {
+    background-color: #FFF7E9;
+  }
+}
 .higher {
   font-size: 20px;
 }
